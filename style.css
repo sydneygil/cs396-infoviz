@@ -1,0 +1,77 @@
+/* Document Layout */
+body {
+  font-size: 1rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+p {
+  margin: .5rem 0;
+}
+
+.frame {
+  border: 1px solid black;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+#layout {
+  width: 1080px;
+}
+
+.row {
+  display: flex;
+}
+
+#title, #filters {
+  text-align: center;
+}
+
+#title {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: -1px;
+}
+
+#visualization {
+  position: relative;
+  width: 800px;
+  text-align: center;
+  border-right-width: 0;
+}
+
+#filters {
+  width: 280px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.slider-range {
+  margin-bottom: 0.5rem;
+}
+input[type=text] {
+  width: 120px;
+  font-size: 1rem;
+}
+
+/* D3 Layout */
+
+.axis line,
+.axis text {
+  font: 11px sans-serif;
+}
+
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 200px;
+  height: 42px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  pointer-events: none;
+}

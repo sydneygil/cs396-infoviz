@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Mass Shootings</title>
+
+<body>
+    <!-- D3 -->
+    <script src="http://d3js.org/d3.v7.min.js"></script>
+    <!-- JQuery -->
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <!--  -->
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <div id="layout">
+        <div id="title" class="frame">
+            <p>Mass Shootings</p>
+        </div>
+        <div class="row">
+            <div id="visualization" class="frame">
+                <svg class="chart"></svg>
+                <script src="script.js"></script>
+            </div>
+            <div id="filters" class="frame">
+                <label for="type">Types:</label>
+                <input type="text" id="mytype" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                <br>
+                <select multiple id='myselectform'>
+				<option value="all">All</option>
+				<option value="tech">Tech.</option>
+				<option value="transp">Transp.</option>
+				<option value="retail">Retail</option>
+				<option value="fastfood">Fastfood</option>
+				<option value="pharm">Pharm.</option>
+				</select>
+                <br/><br/>
+                <p>Volume</p>
+                <div id="vol" class="slider-range"></div>
+                <label for="volamount">Volume range:</label>
+                <input type="text" id="volamount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                <br/><br/>
+                <p>Delta</p>
+                <div id="delta" class="slider-range"></div>
+                <label for="deltaamount">Delta range:</label>
+                <input type="text" id="deltaamount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                <br/><br/>
+                <p>Price</p>
+                <div id="price" class="slider-range"></div>
+                <label for="priceamount">Price range:</label>
+                <input type="text" id="priceamount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                <br/><br/>
+                <p>eValue</p>
+                <div id="eValue" class="slider-range"></div>
+                <label for="eValueamount">eValue range:</label>
+                <input type="text" id="eValueamount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            </div>
+        </div>
+</body>
+
+</html>
