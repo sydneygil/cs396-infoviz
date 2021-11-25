@@ -72,13 +72,13 @@ input[type=text] {
 
 div.tooltip {
     position: absolute;
-    text-align: center;
-    width: 200px;
-    height: 42px;
+    text-align: left;
+    /* height: 42px; */
     font: 12px sans-serif;
     background: lightsteelblue;
     border: 0px;
     pointer-events: none;
+    z-index: 2;
 }
 
 .states {
