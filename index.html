@@ -9,8 +9,10 @@
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-    <!--  -->
+    <!-- Topojson -->
     <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <!-- D3 Zoom -->
+    <script type="module">import {zoom} from "https://cdn.skypack.dev/d3-zoom@3";const handler = zoom();</script>
     <link href="style.css" rel="stylesheet">
     <div id="layout">
         <div id="title" class="frame">
@@ -21,37 +23,53 @@
                 <script src="script.js"></script>
             </div>
             <div id="filters" class="frame">
-                <label for="type">Types:</label>
-                <input type="text" id="mytype" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                <br>
-                <select multiple id='myselectform'>
-				<option value="all">All</option>
-				<option value="tech">Tech.</option>
-				<option value="transp">Transp.</option>
-				<option value="retail">Retail</option>
-				<option value="fastfood">Fastfood</option>
-				<option value="pharm">Pharm.</option>
-				</select>
-                <br/><br/>
-                <p>Year</p>
-                <div id="date" class="slider-range"></div>
-                <label for="date_amount">Year range:</label>
-                <input type="text" id="date_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                <br/><br/>
-                <p>Fatalities</p>
-                <div id="fatalities" class="slider-range"></div>
-                <label for="fatalities_amount">Fatalities range:</label>
-                <input type="text" id="fatalities_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                <br/><br/>
-                <p>Injured</p>
-                <div id="injured" class="slider-range"></div>
-                <label for="injured_amount">Injured range:</label>
-                <input type="text" id="injured_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                <br/><br/>
-                <p>Shooter Age</p>
-                <div id="age_of_shooter" class="slider-range"></div>
-                <label for="age_of_shooter_amount">Shooter Age:</label>
-                <input type="text" id="age_of_shooter_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                <div id="shooting_info" class="filters_container">
+                    <div class="filter_group_title">Shooting Info</div>
+                    <div id="shooting_selectors" class="selectors_container">
+                        <div id="type_selector" class="multiSelect"><label>Shooting types:</label><br></div>
+                        <div id="location_1_selector" class="multiSelect"><label>Location types:</label><br></div>
+                    </div>
+                    <div class="slider">
+                        <p>Year</p>
+                        <div id="date" class="slider-range"></div>
+                        <label for="date_amount">Year range:</label>
+                        <input type="text" id="date_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <br>
+                    </div>
+                    <div class="slider">
+                        <p>Fatalities</p>
+                        <div id="fatalities" class="slider-range"></div>
+                        <label for="fatalities_amount">Fatalities range:</label>
+                        <input type="text" id="fatalities_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <br>
+                    </div>
+                    <div class="slider">
+                        <p>Injured</p>
+                        <div id="injured" class="slider-range"></div>
+                        <label for="injured_amount">Injured range:</label>
+                        <input type="text" id="injured_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <br>
+                    </div>
+                </div>
+                <div id="shooter_info" class="filters_container">
+                    <div class="filter_group_title">Shooter Info</div>
+                    <div class="slider">
+                        <p>Shooter Age</p>
+                        <div id="age_of_shooter" class="slider-range"></div>
+                        <label for="age_of_shooter_amount">Shooter Age range:</label>
+                        <input type="text" id="age_of_shooter_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <br>
+                    </div>
+                    <div id="shooter_selectors" class="selectors_container">
+                        <div id="race_selector" class="multiSelect"><label>Race:</label><br></div>
+                        <div id="gender_selector" class="multiSelect"><label>Gender:</label><br></div>
+                        <div class="flex_break"></div>
+                        <div id="prior_signs_mental_health_issues_selector" class="multiSelect"><label>Prior signs of mental health issues:</label><br></div>
+                        <div id="weapons_obtained_legally_selector" class="multiSelect"><label>Weapon obtained legally:</label><br></div>
+                    </div>
+                    
+                </div>
+                
             </div>
         </div>
 </body>
