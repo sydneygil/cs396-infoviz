@@ -2,7 +2,7 @@
 
 body {
     font-size: 1rem;
-    font-family: 'Raleway', sans-serif;
+    font-family: system-ui;
 }
 
 p {
@@ -120,9 +120,6 @@ div.tooltip {
     fill-opacity: .8;
     stroke: #fff;
 }
-
-
-
 
 .flex_break {
   flex-basis: 100%;

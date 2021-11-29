@@ -14,6 +14,7 @@ const zoom = d3.zoom().scaleExtent([1, 8]).on('zoom', zoomed);
 let dataset, ranges, filter_query;
 let tooltip, stats;
 let attributes = ["date", "fatalities", "injured", "total_victims", "age_of_shooter", "latitude", "longitude", "year"]
+
 // let attributes = ["case", "location", "date", "summary", "fatalities", "injured", "total_victims", "location_1", "age_of_shooter", "prior_signs_mental_health_issues", "mental_health_details", "weapons_obtained_legally", "where_obtained", "weapon_type", "weapon_details", "race", "gender", "sources", "mental_health_sources", "sources_additional_age", "latitude", "longitude", "type", "year"]
 let dateParser = d3.timeParse("%-m/%-d/%Y");
 let dateFormatter = d3.timeFormat("%-m/%-d/%Y");
@@ -86,7 +87,7 @@ async function initialize() {
 
     // Statistics text
     stats = g.append("text")
-        .attr("font-family", "sans-serif")
+        .attr("font-family", "system-ui")
         .attr("font-size", "20px")
         .attr("fill", "red");
     
@@ -153,11 +154,15 @@ function drawVis(_dataset) {
     let sumTotalVictims = d3.sum(_dataset, d => d.total_victims);
 
     // Update stats text
-    stats.html("Statistics of all currently visualzied data points:<br> \
+    stats.html("<b>Statistics of Currently Visualized Data Points</b><br> \
+                <p> \
                 Cases visualized: " + totalVisualized + "<br> \
                 Total fatalities: " + sumFatalities + "<br> \
                 Total injured: " + sumInjured + "<br> \
                 Total victims: " + sumTotalVictims);
+    
+
+    // Add pie chart visualizing current statistics
 }
 
 function filterData() {
