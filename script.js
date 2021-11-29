@@ -154,7 +154,8 @@ function drawVis(_dataset) {
     let sumTotalVictims = d3.sum(_dataset, d => d.total_victims);
 
     // Update stats text
-    stats.html("<b>Statistics of Currently Visualized Data Points</b><br> \
+    stats.html("<p> \
+                <b>Statistics of Currently Visualized Data Points</b><br> \
                 <p> \
                 Cases visualized: " + totalVisualized + "<br> \
                 Total fatalities: " + sumFatalities + "<br> \

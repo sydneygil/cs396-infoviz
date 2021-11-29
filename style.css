@@ -2,7 +2,7 @@
 
 body {
     font-size: 1rem;
-    font-family: system-ui;
+    font-family: 'Open Sans', sans-serif;
 }
 
 p {
@@ -10,8 +10,8 @@ p {
 }
 
 .frame {
-    border: 1px solid black;
-    box-sizing: border-box;
+    /* border: 1px solid black; */
+    /* box-sizing: border-box; */
     padding: 0.5rem;
 }
 
@@ -31,7 +31,9 @@ p {
 #title {
     text-align: center;
     font-size: 20px;
-    margin-bottom: -1px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 60px;
 }
 
 #visualization {
@@ -39,6 +41,7 @@ p {
     width: 800px;
     text-align: center;
     border-right-width: 0;
+
 }
 
 #filters {
