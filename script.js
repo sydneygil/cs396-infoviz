@@ -30,6 +30,7 @@ async function setup() {
     projection = d3.geoAlbersUsa().fitSize([width, height], topojson.feature(states, states.objects.usStates));
     generator = d3.geoPath().projection(projection);
     g = d3.select("#visualization").append("g")
+        .attr("id", "viz_group");
     map = g.append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -88,7 +89,8 @@ async function initialize() {
     stats = g.append("text")
         .attr("font-family", "sans-serif")
         .attr("font-size", "20px")
-        .attr("fill", "red");
+        .attr("fill", "red")
+        .attr("id", "stats");
     
     // Create sliders
     generateSlider("date", ranges.date[0], ranges.date[1]);
@@ -195,6 +197,7 @@ function generateSelector(attr, options, parent) {
     let selectEle = document.createElement("select")
     selectEle.classList.add("multiSelect");
     selectEle.id = attr;
+    // selectEle.setAttribute("size", options.length);
 
     options.forEach(option => {
         let optionEle = document.createElement("option");

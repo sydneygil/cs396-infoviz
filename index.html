@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>Mass Shootings</title>
 
-<body>
+<head>
     <!-- D3 -->
     <script src="http://d3js.org/d3.v7.min.js"></script>
     <!-- JQuery -->
@@ -13,51 +13,56 @@
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <!-- D3 Zoom -->
     <script type="module">import {zoom} from "https://cdn.skypack.dev/d3-zoom@3";const handler = zoom();</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- CSS -->
     <link href="style.css" rel="stylesheet">
+</head>
+<body>
     <div id="layout">
-        <div id="title" class="frame">
-            <p>Mass Shootings</p>
-        </div>
-        <div class="row">
+        <h1>Mass Shootings in the United States from 1982 to 2021</h1>
+        <div class="container">
             <div id="visualization" class="frame">
                 <script src="script.js"></script>
             </div>
             <div id="filters" class="frame">
                 <div id="shooting_info" class="filters_container">
-                    <div class="filter_group_title">Shooting Info</div>
+                    <h2 class="filter_group_title">Shooting Info</h2>
                     <div id="shooting_selectors" class="selectors_container">
                         <div id="type_selector" class="multiSelect"><label>Shooting types:</label><br></div>
                         <div id="location_1_selector" class="multiSelect"><label>Location types:</label><br></div>
                     </div>
                     <div class="slider">
-                        <p>Year</p>
+                        <h3>Year</h3>
                         <div id="date" class="slider-range"></div>
                         <label for="date_amount">Year range:</label>
-                        <input type="text" id="date_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <input type="text" id="date_amount" readonly>
                         <br>
                     </div>
                     <div class="slider">
-                        <p>Fatalities</p>
+                        <h3>Fatalities</h3>
                         <div id="fatalities" class="slider-range"></div>
                         <label for="fatalities_amount">Fatalities range:</label>
-                        <input type="text" id="fatalities_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <input type="text" id="fatalities_amount" readonly>
                         <br>
                     </div>
                     <div class="slider">
-                        <p>Injured</p>
+                        <h3>Injured</h3>
                         <div id="injured" class="slider-range"></div>
                         <label for="injured_amount">Injured range:</label>
-                        <input type="text" id="injured_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <input type="text" id="injured_amount" readonly>
                         <br>
                     </div>
                 </div>
                 <div id="shooter_info" class="filters_container">
-                    <div class="filter_group_title">Shooter Info</div>
+                    <h2 class="filter_group_title">Shooter Info</h2>
                     <div class="slider">
-                        <p>Shooter Age</p>
+                        <h3>Shooter Age</h3>
                         <div id="age_of_shooter" class="slider-range"></div>
                         <label for="age_of_shooter_amount">Shooter Age range:</label>
-                        <input type="text" id="age_of_shooter_amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <input type="text" id="age_of_shooter_amount" readonly>
                         <br>
                     </div>
                     <div id="shooter_selectors" class="selectors_container">
