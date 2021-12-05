@@ -13,10 +13,13 @@ const zoom = d3.zoom().scaleExtent([1, 8]).on('zoom', zoomed);
 // Data visualization variables
 let dataset, ranges, filter_query, default_filters;
 let tooltip, stats;
-let attributes = ["date", "fatalities", "injured", "total_victims", "age_of_shooter", "latitude", "longitude", "year"]
+let attributes = ["date", "fatalities", "injured", "total_victims", "age_of_shooter", "latitude", "longitude", "year"];
 let dateParser = d3.timeParse("%-m/%-d/%Y");
 let dateFormatter = d3.timeFormat("%-m/%-d/%Y");
-let dateToYear = d3.timeFormat("%Y")
+let dateToYear = d3.timeFormat("%Y");
+let colors = ["red", "blue", "green", "yellow", "orange", "purple"];
+let color_scales = {};
+let selected_attribute = "none";
 
 
 // Main functions
@@ -78,8 +81,6 @@ async function initialize() {
     }
     default_filters = JSON.parse(JSON.stringify(filter_query))
 
-    // Create scales (none?)
-
     // Initiate tooltip
     tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
@@ -91,6 +92,7 @@ async function initialize() {
         .attr("font-size", "20px")
         .attr("fill", "red")
         .attr("id", "stats");
+
     
     // Create sliders
     generateSlider("date", ranges.date[0], ranges.date[1]);
@@ -106,6 +108,10 @@ async function initialize() {
     generateSelector("prior_signs_mental_health_issues", ["All", "Yes", "No", "Unknown"], document.getElementById("prior_signs_mental_health_issues_selector"));
     generateSelector("weapons_obtained_legally", ["All", "Yes", "No", "Unknown"], document.getElementById("weapons_obtained_legally_selector"));
 
+    // Initiate default color scale
+    color_scales["none"] = {
+        scale: function () { return "#ef4565" }
+    }
 
     // Draw the initial visualization
     drawVis(dataset);
@@ -123,9 +129,7 @@ function drawVis(_dataset) {
     dataPt.enter().append("circle")
         .attr("cx", d => projection([d.longitude, d.latitude])[0])
         .attr("cy", d => projection([d.longitude, d.latitude])[1])
-        .style("fill", "red")
         .attr("r", 4)
-        // .style("stroke", "black")
         .style("opacity", 0.5)
         .on("mouseover", function (event, d, i) {
             zoomConstant = d3.zoomTransform(this).k;
@@ -144,6 +148,10 @@ function drawVis(_dataset) {
                 .duration(500)
                 .style("opacity", 0.0);
         });
+
+    // Color data with respect to selected attribute
+    map.selectAll("circle")
+        .style("fill", d => colorPoint(d));
 
     // Apply zoom transformations
     zoomed({ transform: d3.zoomTransform(map.select('path').node())});
@@ -216,6 +224,13 @@ function generateSelector(attr, options, parent) {
     }
     parent.appendChild(selectEle);
 
+    // Initialize color scale
+    color_scales[attr] = {
+        'scale': d3.scaleOrdinal()
+            .domain([...options].splice(1, options.length))
+            .range([...colors].splice(0, options.length - 1))
+    }
+
     // Configure selector
     // Allow multiple selections on type dropdown
     $(`#${attr}`).attr("multiple", "multiple");
@@ -267,6 +282,13 @@ function generateSlider(attr, min, max, moreValues=false) {
         $("#"+attr+"_amount").val($("#"+attr).slider("values", 0) +
             " - " + $("#"+attr).slider("values", 1) + plusIndicator);
     });
+
+    // Initialize color scale
+    color_scales[attr] = {
+        'scale': d3.scaleOrdinal()
+            .domain([min, max])
+            .range(["#bee4ff", "#094067"])
+    }
 }
 
 // Helper functions
@@ -276,6 +298,15 @@ function zoomed(e) {
     map.selectAll('circle')
         .attr("r", 4/e.transform.k)
 
+}
+
+function updateColorScale(newSelectedAttr) {
+    selected_attribute = newSelectedAttr;
+    filterData();
+}
+
+function colorPoint(d) {
+    return color_scales[selected_attribute].scale(d[selected_attribute]);
 }
 
 function resetFilters() {
