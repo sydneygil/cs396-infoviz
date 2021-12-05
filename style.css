@@ -119,7 +119,7 @@ select:focus-visible {
 }
 
 input[type=text] {
-    width: 50px;
+    width: 58px;
     font-size: 1rem;
     border: 0;
     color: #3da9fc;
@@ -128,6 +128,26 @@ input[type=text] {
 
 #date_amount {
     width: 90px;
+}
+
+/* Reset button */
+#reset {
+    height: 4rem;
+    align-self: center;
+    border-style: none;
+    border-radius: .5rem;
+    background-color: #3da9fc;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: #fffffe;
+}
+
+#reset:hover {
+    background-color: #68bcfd;
+}
+
+#reset:active {
+    background-color: #1b9cff;
 }
 
 

@@ -11,10 +11,9 @@ let projection, generator, g, map;
 const zoom = d3.zoom().scaleExtent([1, 8]).on('zoom', zoomed);
 
 // Data visualization variables
-let dataset, ranges, filter_query;
+let dataset, ranges, filter_query, default_filters;
 let tooltip, stats;
 let attributes = ["date", "fatalities", "injured", "total_victims", "age_of_shooter", "latitude", "longitude", "year"]
-// let attributes = ["case", "location", "date", "summary", "fatalities", "injured", "total_victims", "location_1", "age_of_shooter", "prior_signs_mental_health_issues", "mental_health_details", "weapons_obtained_legally", "where_obtained", "weapon_type", "weapon_details", "race", "gender", "sources", "mental_health_sources", "sources_additional_age", "latitude", "longitude", "type", "year"]
 let dateParser = d3.timeParse("%-m/%-d/%Y");
 let dateFormatter = d3.timeFormat("%-m/%-d/%Y");
 let dateToYear = d3.timeFormat("%Y")
@@ -56,8 +55,8 @@ async function initialize() {
         d.injured = +d.injured;
         d.total_victims = +d.total_victims;
         d.age_of_shooter = +d.age_of_shooter;
-        d.latitude = +d.latitude;
-        d.longitude = +d.longitude;
+        d.latitude = +d.latitude + Math.random() * .1;
+        d.longitude = +d.longitude + Math.random() * .1;
         d.year = +d.year;
     });
     dataset = crime;
@@ -77,6 +76,7 @@ async function initialize() {
             ]
         }
     }
+    default_filters = JSON.parse(JSON.stringify(filter_query))
 
     // Create scales (none?)
 
@@ -153,13 +153,17 @@ function drawVis(_dataset) {
     let sumFatalities = d3.sum(_dataset, d => d.fatalities);
     let sumInjured = d3.sum(_dataset, d => d.injured);
     let sumTotalVictims = d3.sum(_dataset, d => d.total_victims);
+    let percentVisualized = (totalVisualized / dataset.length * 100).toFixed(1)
+    let percentFatalities = (sumFatalities / d3.sum(dataset, d => d.fatalities) * 100).toFixed(1)
+    let percentInjured = (sumInjured / d3.sum(dataset, d => d.injured) * 100).toFixed(1)
+    let percentTotalVictims = (sumTotalVictims / d3.sum(dataset, d => d.total_victims) * 100).toFixed(1)
 
     // Update stats text
-    stats.html("Statistics of all currently visualzied data points:<br> \
-                Cases visualized: " + totalVisualized + "<br> \
-                Total fatalities: " + sumFatalities + "<br> \
-                Total injured: " + sumInjured + "<br> \
-                Total victims: " + sumTotalVictims);
+    stats.html(`Statistics of all currently visualzied data points:<br>
+                Cases visualized: ${totalVisualized} (${percentVisualized}%) <br>
+                Total fatalities: ${sumFatalities} (${percentFatalities}%) <br>
+                Total injured: ${sumInjured} (${percentInjured}%) <br>
+                Total victims: ${sumTotalVictims} (${percentTotalVictims}%)`);
 }
 
 function filterData() {
@@ -272,6 +276,26 @@ function zoomed(e) {
     map.selectAll('circle')
         .attr("r", 4/e.transform.k)
 
+}
+
+function resetFilters() {
+    filter_query = default_filters;
+    $("select.multiSelect").each(function() {
+        filter_query[$(this).attr('id')] = {
+            type: "nominal"
+        }
+    })
+
+    $(`.multiSelect option`).each(function () {
+        if (($(this).prop('value')) != "All") { $(this).prop('selected', false) } else { $(this).prop('selected', true); }
+    })
+
+    $(".slider div[id]").each(function () { 
+        $(this).slider("values", ranges[$(this).attr("id")]);
+        $(this).slider("option", "slide").call($(this), null, { values: $(this).slider("values") });
+    })
+
+    filterData();
 }
 
 window.onload = setup;
