@@ -190,6 +190,20 @@ input[type=text] {
     left: -10px;
 }
 
+/* Legend */
+#legend, .legend {
+    width: 10rem;
+    height: 11rem;
+}
+
+.legendTitle {
+    font-weight: bold;
+}
+
+.legendCells {
+    transform: translate(0px, 40px);
+}
+
 /* D3 Layout */
 
 .axis line,

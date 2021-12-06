@@ -40,8 +40,7 @@ async function setup() {
     map.call(zoom);
 
     // Setup legend
-    legend = d3.select("#legend").append("g")
-        .attr("id", "legend_group")
+    legend = d3.select("#legend")
 
     // Draw the states
     map.append("path")
@@ -117,7 +116,8 @@ async function initialize() {
         scale: function () { return "#ef4565" }
     }
 
-    // Initiate legend
+    // Initialize empty legend
+    updateLegend();
 
     // Set star handlers
     $(".star").click(handleStars);
@@ -161,6 +161,12 @@ function drawVis(_dataset) {
     // Color data with respect to selected attribute
     map.selectAll("circle")
         .style("fill", d => colorPoint(d));
+    
+    if (attributes.includes(selected_attribute)) {
+        map.selectAll("circle").style("opacity", 1);
+    } else {
+        map.selectAll("circle").style("opacity", 0.5);
+    }
 
     // Apply zoom transformations
     zoomed({ transform: d3.zoomTransform(map.select('path').node())});
@@ -235,6 +241,7 @@ function generateSelector(attr, options, parent) {
 
     // Initialize color scale
     color_scales[attr] = {
+        'type': 'nominal',
         'scale': d3.scaleOrdinal()
             .domain([...options].splice(1, options.length))
             .range([...colors].splice(0, options.length - 1))
@@ -294,9 +301,10 @@ function generateSlider(attr, min, max, moreValues=false) {
 
     // Initialize color scale
     color_scales[attr] = {
-        'scale': d3.scaleOrdinal()
+        'type': 'quantitative',
+        'scale': d3.scaleLinear()
             .domain([min, max])
-            .range(["#cdeaff", "#001f36"])
+            .range(["#ebeeff", "#3d49fc"])
     }
 }
 
@@ -331,20 +339,62 @@ function handleStars() {
 function updateColorScale(newSelectedAttr) {
     selected_attribute = newSelectedAttr;
     filterData();
-    // updateLegend();
+    updateLegend();
 }
 
 function updateLegend() {
-    let legend = d3.svg.legend()
-        .units(selected_attribute)
-        .cellWidth(80)
-        .cellHeight(25)
-        .inputScale(color_scales[selected_attribute].scale)
-        .cellStepping(100);
+    let titles = {
+        "type": "Shooting Type",
+        "location_1": "Location Type",
+        "date": "Year",
+        "fatalities": "Fatalities",
+        "injured": "Injured",
+        "age_of_shooter": "Age of Shooter",
+        "race": "Race of Shooter",
+        "gender": "Gender of Shooter",
+        "prior_signs_mental_health_issues": "Prior signs of Mental Health Issues",
+        "weapons_obtained_legally": "Weapons Obtained Legally"
+    }
+
+    let lgnd = d3.legendColor()
+        .labelFormat(d3.format("d"))
+        .useClass(true)
+        .title(titles[selected_attribute])
+        .titleWidth(160)
+        .scale(color_scales[selected_attribute].scale);
     
+    // Delete previous legend, add new one
+    $("#legend").empty();
+    let legend_div = legend.append("svg")
+                            .attr("transform", "translate(0,140)")
+                            .attr("class", "legend");
+
+    if (selected_attribute == 'none') return; // Don't try to make a legend for no selected attributes
+    legend_div.call(lgnd);
+    
+    // Color rects accordingly
+    if (color_scales[selected_attribute].type == 'nominal') {
+        $("rect.swatch").each(function() {
+            $(this).attr("fill", $(this).attr("class").split(' ')[1])
+        }) 
+    } else {
+        $("rect.swatch").each(function () {
+            $(this).attr("fill", $(this).attr("class").split(' ').slice(1, 4).join(' '))
+        })
+    }
+    
+    // Adjust layout
+    $(".legendTitle tspan").attr("dy", "1em");
+
+    // Adjust legend label for "injured"
+    if (selected_attribute == "injured") {
+        $("text.label:contains(70)").text("70+");
+    }
 }
 
 function colorPoint(d) {
+    if (selected_attribute == 'date') return color_scales[selected_attribute].scale(dateToYear(d[selected_attribute]));
+    if (selected_attribute == 'injured' && d.injured >= 70) return color_scales[selected_attribute].scale(70);
     return color_scales[selected_attribute].scale(d[selected_attribute]);
 }
 
