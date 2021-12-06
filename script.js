@@ -12,7 +12,7 @@ const zoom = d3.zoom().scaleExtent([1, 8]).on('zoom', zoomed);
 
 // Data visualization variables
 let dataset, ranges, filter_query, default_filters;
-let tooltip, stats;
+let tooltip, stats, legend;
 let attributes = ["date", "fatalities", "injured", "total_victims", "age_of_shooter", "latitude", "longitude", "year"];
 let dateParser = d3.timeParse("%-m/%-d/%Y");
 let dateFormatter = d3.timeFormat("%-m/%-d/%Y");
@@ -38,6 +38,10 @@ async function setup() {
         .attr("height", height)
 
     map.call(zoom);
+
+    // Setup legend
+    legend = d3.select("#legend").append("g")
+        .attr("id", "legend_group")
 
     // Draw the states
     map.append("path")
@@ -112,6 +116,11 @@ async function initialize() {
     color_scales["none"] = {
         scale: function () { return "#ef4565" }
     }
+
+    // Initiate legend
+
+    // Set star handlers
+    $(".star").click(handleStars);
 
     // Draw the initial visualization
     drawVis(dataset);
@@ -207,7 +216,7 @@ function generateTooltip(d) {
 
 function generateSelector(attr, options, parent) {
     let selectEle = document.createElement("select")
-    selectEle.classList.add("multiSelect");
+    selectEle.classList.add("multi_select");
     selectEle.id = attr;
     // selectEle.setAttribute("size", options.length);
 
@@ -287,7 +296,7 @@ function generateSlider(attr, min, max, moreValues=false) {
     color_scales[attr] = {
         'scale': d3.scaleOrdinal()
             .domain([min, max])
-            .range(["#bee4ff", "#094067"])
+            .range(["#cdeaff", "#001f36"])
     }
 }
 
@@ -300,9 +309,39 @@ function zoomed(e) {
 
 }
 
+function handleStars() {
+    // Uncheck all other stars 
+    $(".star").not($(this)).prop("checked", false);
+
+    // If clicked star was unchecked, then set selected attr to none
+    let attr;
+    if (!$(this).prop("checked")) {
+        attr = "none";
+    } else {
+        // Get the attribute corresponding to the star
+        attr = $(this).prop("id");
+        attr = attr.slice(0, attr.length - 5);
+    }
+
+    // Update the new attribute to be visualized in the map by color
+    updateColorScale(attr);
+    filterData();
+}
+
 function updateColorScale(newSelectedAttr) {
     selected_attribute = newSelectedAttr;
     filterData();
+    // updateLegend();
+}
+
+function updateLegend() {
+    let legend = d3.svg.legend()
+        .units(selected_attribute)
+        .cellWidth(80)
+        .cellHeight(25)
+        .inputScale(color_scales[selected_attribute].scale)
+        .cellStepping(100);
+    
 }
 
 function colorPoint(d) {
@@ -311,13 +350,13 @@ function colorPoint(d) {
 
 function resetFilters() {
     filter_query = default_filters;
-    $("select.multiSelect").each(function() {
+    $("select.multi_select").each(function() {
         filter_query[$(this).attr('id')] = {
             type: "nominal"
         }
     })
 
-    $(`.multiSelect option`).each(function () {
+    $(`.multi_select option`).each(function () {
         if (($(this).prop('value')) != "All") { $(this).prop('selected', false) } else { $(this).prop('selected', true); }
     })
 

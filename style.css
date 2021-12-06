@@ -25,6 +25,11 @@ h2 {
     margin: .4rem 0;
 }
 
+h3 {
+    display: inline-block;
+    margin: 1rem auto;
+}
+
 .frame {
     padding: 0.5rem;
 }
@@ -82,7 +87,7 @@ h2 {
 
 /* Styling for dropdown multiselect */
 .selectors_container {
-    height: 50%;
+    height: 70%;
     display: flex;
     padding: 1rem 0;
     justify-content: space-around;
@@ -91,7 +96,7 @@ h2 {
 }
 
 #shooting_selectors {
-    height: 20%;
+    height: 30%;
     padding: 0;
 }
 
@@ -102,10 +107,15 @@ h2 {
     margin: 4px;
 }
 
-.multiSelect {
+.multi_select {
     position: relative;
     min-width: 50%;
     overflow-y: auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+.multi_select_container {
+    min-width: 50%;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -150,6 +160,35 @@ input[type=text] {
     background-color: #1b9cff;
 }
 
+/* Star selectors */
+.star {
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+}
+.star:before {
+   content: "\2606";
+   color: #ef4565;
+   position: relative;
+   visibility:visible;
+   top: -1rem;
+   left: -.5rem;
+}
+.star:checked:before {
+   content: "\2605";
+   position: relative;
+}
+
+.multi_select_container .star {
+    position: absolute;
+    overflow: visible;
+}
+
+.multi_select_container .star:before {
+    position: relative;
+    top: -14px;
+    left: -10px;
+}
 
 /* D3 Layout */
 

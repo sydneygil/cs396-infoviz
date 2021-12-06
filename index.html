@@ -24,6 +24,7 @@
     <div id="layout">
         <h1>Mass Shootings in the United States from 1982 to 2021</h1>
         <div class="container">
+            <div id="legend"></div>
             <div id="visualization" class="frame">
                 <script src="script.js"></script>
             </div>
@@ -31,10 +32,11 @@
                 <div id="shooting_info" class="filters_container">
                     <h2 class="filter_group_title">Shooting Info</h2>
                     <div id="shooting_selectors" class="selectors_container">
-                        <div id="type_selector" class="multiSelect"><label>Shooting types:</label><br></div>
-                        <div id="location_1_selector" class="multiSelect"><label>Location types:</label><br></div>
+                        <div id="type_selector" class="multi_select_container"><input class="star" type="checkbox" id="type_star"><label>Shooting types:</label><br></div>
+                        <div id="location_1_selector" class="multi_select_container"><input class="star" type="checkbox" id="location_1_star"><label>Location types:</label><br></div>
                     </div>
                     <div class="slider">
+                        <input class="star" type="checkbox" id="date_star">
                         <h3>Year</h3>
                         <div id="date" class="slider-range"></div>
                         <label for="date_amount">Year range:</label>
@@ -42,6 +44,7 @@
                         <br>
                     </div>
                     <div class="slider">
+                        <input class="star" type="checkbox" id="fatalities_star">
                         <h3>Fatalities</h3>
                         <div id="fatalities" class="slider-range"></div>
                         <label for="fatalities_amount">Fatalities range:</label>
@@ -49,6 +52,7 @@
                         <br>
                     </div>
                     <div class="slider">
+                        <input class="star" type="checkbox" id="injured_star">
                         <h3>Injured</h3>
                         <div id="injured" class="slider-range"></div>
                         <label for="injured_amount">Injured range:</label>
@@ -59,6 +63,7 @@
                 <div id="shooter_info" class="filters_container">
                     <h2 class="filter_group_title">Shooter Info</h2>
                     <div class="slider">
+                        <input class="star" type="checkbox" id="age_of_shooter_star">
                         <h3>Shooter Age</h3>
                         <div id="age_of_shooter" class="slider-range"></div>
                         <label for="age_of_shooter_amount">Shooter Age range:</label>
@@ -66,11 +71,11 @@
                         <br>
                     </div>
                     <div id="shooter_selectors" class="selectors_container">
-                        <div id="race_selector" class="multiSelect"><label>Race:</label><br></div>
-                        <div id="gender_selector" class="multiSelect"><label>Gender:</label><br></div>
+                        <div id="race_selector" class="multi_select_container"><input class="star" type="checkbox" id="race_star"><label>Race:</label><br></div>
+                        <div id="gender_selector" class="multi_select_container"><input class="star" type="checkbox" id="gender_star"><label>Gender:</label><br></div>
                         <div class="flex_break"></div>
-                        <div id="prior_signs_mental_health_issues_selector" class="multiSelect"><label>Prior signs of mental health issues:</label><br></div>
-                        <div id="weapons_obtained_legally_selector" class="multiSelect"><label>Weapons obtained legally:</label><br></div>
+                        <div id="prior_signs_mental_health_issues_selector" class="multi_select_container"><input class="star" type="checkbox" id="prior_signs_mental_health_issues_star"><label>Prior signs of mental health issues:</label><br></div>
+                        <div id="weapons_obtained_legally_selector" class="multi_select_container"><input class="star" type="checkbox" id="weapons_obtained_legally_star"><label>&ensp;Weapons obtained legally:</label><br></div>
                     </div>
                     
                 </div>
