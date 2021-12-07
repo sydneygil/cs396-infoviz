@@ -7,4 +7,4 @@ Dataset source: https://www.motherjones.com/politics/2012/12/mass-shootings-moth
 
 Explanation of dataset: https://www.motherjones.com/politics/2012/07/mass-shootings-map/
 
-To use the code on your local machine, please download the zip file and use a local server (e.g. Live Server on VS Code) to launch the index.html file.
+To use the code on your local machine, please download the zip file and use a local server (e.g. Live Server on VS Code) to launch the index.html file. You can also view the interactive viz at this link: https://sydneygil.github.io/cs396-infoviz/.
