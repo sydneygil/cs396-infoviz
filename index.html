@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Mass Shootings</title>
+
+<head>
+    <!-- D3 -->
+    <script src="http://d3js.org/d3.v7.min.js"></script>
+    <!-- JQuery -->
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <!-- Topojson -->
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <!-- D3 Zoom -->
+    <script type="module">import {zoom} from "https://cdn.skypack.dev/d3-zoom@3";const handler = zoom();</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- D3 Legends -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js" integrity="sha512-wNH6xsp2n8CfB91nrBtfc4sfLwYPBMjSWVUwQOp60AYYXH6i8yCwuKFZ4rgK2i6pQek/b+bSyR7b01/922IBzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js" integrity="sha512-5mCB0Kvv97yTzqo0174qxPjMisck/WlK51+mw/RV7UfYbtHI8LuLR82BzZuxHUKSfbh75u9cZHgUcqrZDaBJuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="layout">
+        <h1>Mass Shootings in the United States from 1982 to 2021</h1>
+        <div class="container">
+            <div id="legend"></div>
+            <div id="visualization" class="frame">
+                <script src="script.js"></script>
+            </div>
+            <div id="filters" class="frame">
+                <div id="shooting_info" class="filters_container">
+                    <h2 class="filter_group_title">Shooting Info</h2>
+                    <div id="shooting_selectors" class="selectors_container">
+                        <div id="type_selector" class="multi_select_container"><input class="star" type="checkbox" id="type_star"><label>Shooting types:</label><br></div>
+                        <div id="location_1_selector" class="multi_select_container"><input class="star" type="checkbox" id="location_1_star"><label>Location types:</label><br></div>
+                    </div>
+                    <div class="slider">
+                        <input class="star" type="checkbox" id="date_star">
+                        <h3>Year</h3>
+                        <div id="date" class="slider-range"></div>
+                        <label for="date_amount">Year range:</label>
+                        <input type="text" id="date_amount" readonly>
+                        <br>
+                    </div>
+                    <div class="slider">
+                        <input class="star" type="checkbox" id="fatalities_star">
+                        <h3>Fatalities</h3>
+                        <div id="fatalities" class="slider-range"></div>
+                        <label for="fatalities_amount">Fatalities range:</label>
+                        <input type="text" id="fatalities_amount" readonly>
+                        <br>
+                    </div>
+                    <div class="slider">
+                        <input class="star" type="checkbox" id="injured_star">
+                        <h3>Injured</h3>
+                        <div id="injured" class="slider-range"></div>
+                        <label for="injured_amount">Injured range:</label>
+                        <input type="text" id="injured_amount" readonly>
+                        <br>
+                    </div>
+                </div>
+                <div id="shooter_info" class="filters_container">
+                    <h2 class="filter_group_title">Shooter Info</h2>
+                    <div class="slider">
+                        <input class="star" type="checkbox" id="age_of_shooter_star">
+                        <h3>Shooter Age</h3>
+                        <div id="age_of_shooter" class="slider-range"></div>
+                        <label for="age_of_shooter_amount">Shooter Age range:</label>
+                        <input type="text" id="age_of_shooter_amount" readonly>
+                        <br>
+                    </div>
+                    <div id="shooter_selectors" class="selectors_container">
+                        <div id="race_selector" class="multi_select_container"><input class="star" type="checkbox" id="race_star"><label>Race:</label><br></div>
+                        <div id="gender_selector" class="multi_select_container"><input class="star" type="checkbox" id="gender_star"><label>Gender:</label><br></div>
+                        <div class="flex_break"></div>
+                        <div id="prior_signs_mental_health_issues_selector" class="multi_select_container"><input class="star" type="checkbox" id="prior_signs_mental_health_issues_star"><label>Prior signs of mental health issues:</label><br></div>
+                        <div id="weapons_obtained_legally_selector" class="multi_select_container"><input class="star" type="checkbox" id="weapons_obtained_legally_star"><label>&ensp;Weapons obtained legally:</label><br></div>
+                    </div>
+                    
+                </div>
+                <button id="reset" onclick="resetFilters()">Reset Filters</button>
+            </div>
+        </div>
+</body>
+
+</html>

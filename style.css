@@ -1,0 +1,247 @@
+/* Document Layout */
+
+body {
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    color: #094067;
+    display: flex;
+    justify-content: center;
+    background-color: #fffffe;
+}
+
+#layout {
+    width: 75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 3rem 0;  
+}
+
+h2 {
+    margin: .4rem 0;
+}
+
+h3 {
+    display: inline-block;
+    margin: 1rem auto;
+}
+
+.frame {
+    padding: 0.5rem;
+}
+
+
+.container {
+    display: flex;
+}
+
+/* Map vizualization */
+#visualization {
+    position: relative;
+    padding: 1rem;
+    text-align: center;
+    border-right-width: 0;
+    border: 1px solid #d4d8da;
+    border-radius: 1rem;
+    box-sizing: border-box;
+}
+
+#visualization svg {
+    background-color: #fffffe;
+}
+
+#viz_group {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#stats {
+    margin: 1rem 0;
+}
+
+/* Filters */
+#filters {
+    text-align: center;
+    display: flex;
+    justify-content: space;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.filters_container {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 2.5rem;
+}
+
+.filter_group_title {
+    font-weight: bold;
+}
+
+/* Styling for dropdown multiselect */
+.selectors_container {
+    height: 70%;
+    display: flex;
+    padding: 1rem 0;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+#shooting_selectors {
+    height: 30%;
+    padding: 0;
+}
+
+.selectors_container>div>label {
+    display:inline-block;
+    text-align: center;
+    width: 140px;
+    margin: 4px;
+}
+
+.multi_select {
+    position: relative;
+    min-width: 50%;
+    overflow-y: auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+.multi_select_container {
+    min-width: 50%;
+    font-family: 'Roboto', sans-serif;
+}
+
+select:focus-visible {
+    outline-width: 0;
+}
+
+/* Styling for sliders */
+.slider-range {
+    margin-bottom: 0.5rem;
+}
+
+input[type=text] {
+    width: 58px;
+    font-size: 1rem;
+    border: 0;
+    color: #3da9fc;
+    font-weight: bold;
+}
+
+#date_amount {
+    width: 90px;
+}
+
+/* Reset button */
+#reset {
+    height: 4rem;
+    align-self: center;
+    border-style: none;
+    border-radius: .5rem;
+    background-color: #3da9fc;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: #fffffe;
+}
+
+#reset:hover {
+    background-color: #68bcfd;
+}
+
+#reset:active {
+    background-color: #1b9cff;
+}
+
+/* Star selectors */
+.star {
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+}
+.star:before {
+   content: "\2606";
+   color: #ef4565;
+   position: relative;
+   visibility:visible;
+   top: -1rem;
+   left: -.5rem;
+}
+.star:checked:before {
+   content: "\2605";
+   position: relative;
+}
+
+.multi_select_container .star {
+    position: absolute;
+    overflow: visible;
+}
+
+.multi_select_container .star:before {
+    position: relative;
+    top: -14px;
+    left: -10px;
+}
+
+/* Legend */
+#legend, .legend {
+    width: 10rem;
+    height: 11rem;
+}
+
+.legendTitle {
+    font-weight: bold;
+}
+
+.legendCells {
+    transform: translate(0px, 40px);
+}
+
+/* D3 Layout */
+
+.axis line,
+.axis text {
+    font: 11px sans-serif;
+}
+
+.axis path {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    /* height: 42px; */
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.states {
+    fill: #ccc;
+    stroke: #fff;
+}
+
+.symbol {
+    fill-opacity: .8;
+    stroke: #fff;
+}
+
+
+
+
+.flex_break {
+  flex-basis: 100%;
+  height: 0;
+}
